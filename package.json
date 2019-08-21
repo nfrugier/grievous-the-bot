@@ -1,0 +1,11 @@
+{
+    "name": "general-grievous",
+    "version": "0.1",
+    "description": "Greeting people like the lovely General Grievous",
+    "main": "grievous.js",
+    "author": "Nicolas Frugier",
+    "dependencies": {
+        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+        "winston": "^3.2.1"
+    }
+}
