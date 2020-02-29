@@ -78,7 +78,7 @@ bot.on('guildMemberAdd', (member) => {
     var memberTag = member.user.tag;
 
     if(guild.systemChannel) {
-        guild.systemChannel.send(memberTag + " s'est joint au Temple d'Affinois, tape `!help` pour savoir ce que je fais !");
+        guild.systemChannel.send("@" + memberTag + " s'est joint au Temple d'Affinois, tape `!help` pour savoir ce que je fais !");
     }
 });
 
@@ -88,7 +88,7 @@ function sendCthulhu(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("Ia Ia " + user + " f'romtagn !");
+        guild.channels.get(channelId).send("**Iä ! Iä ! " + user + " f'hromtagn !**");
     }
 }
 
@@ -105,7 +105,7 @@ function sendHelp(guildId, channelId, user) {
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
         guild.channels.get(channelId).send(
-            "Mon cher **" + user + "** tu as accès aux commandes suivantes :\n- !ping\n- !order66\n- !unmute\n\nEt tu peux aussi me dire `hello there` ou `Ia`, je te répondrai convenablement !"
+            "Mon cher **@" + user + "** tu as accès aux commandes suivantes :\n- !ping\n- !order66\n- !unmute\n\nEt tu peux aussi me dire `hello there` ou `Ia`, je te répondrai convenablement !"
             );
     }
 }
@@ -114,7 +114,7 @@ function Nope(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("Tu tentes quoi, exactement " + user + " ?");
+        guild.channels.get(channelId).send("Tu tentes quoi, exactement, @" + user + " ?");
     }
 }
 
@@ -122,7 +122,7 @@ function Ping(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("PONG !");
+        guild.channels.get(channelId).send("**PONG !**");
     }
 }
 
