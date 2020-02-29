@@ -1,11 +1,12 @@
 {
-    "name": "general-grievous",
-    "version": "0.1",
-    "description": "Greeting people like the lovely General Grievous",
+    "name": "grievous-bot",
+    "version": "1.0.0",
+    "description": "only respond to hello there with the correct quote",
     "main": "grievous.js",
     "author": "Nicolas Frugier",
     "dependencies": {
-        "discord.io": "^2.5.3",
+        "discord.io": "https://github.com/woor/discord.io/tarball/gateway_v6",
+        "discord.js": "^11.5.1",
         "winston": "^3.2.1"
     }
 }

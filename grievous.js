@@ -1,43 +1,41 @@
-var Discord = require('discord.io');
-var logger = require("winston");
-var auth = require('./auth.json');
-//Configure logger settings
+const Discord = require('discord.js');
+const logger = require("winston");
+const auth = require('./auth.json');
+
+//logger settings
+
 logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
-    colorize: true
+    colorize: true,
 });
 logger.level = 'debug';
-//Initialize the Bot
-var bot = new Discord.Client({
-    token: auth.token,
-    autorun: true
-});
-bot.on('ready', function (evt){
-    logger.info('Connected');
-    logger.info('Logged in as : ');
-    logger.info(bot.username  + ' - (' + bot.id + ')');
-});
-bot.on('message', function(user, userID, channelID, message, evt){
-    // //for test purposes only
-    // if(message.substring(0,1) == '!') {
-    //     var args = message.substring(1).split(' ');
-    //     var cmd = args[0];
 
-    //     args = args.splice(1);
-    //     switch(cmd) {
-    //         case 'ping':
-    //             bot.sendMessage({
-    //                 to: channelID,
-    //                 message: 'Pong !'
-    //             });
-    //         break;
-    //     }
-    // }
-    //real shit is here
-    if(message.toLowerCase() == 'hello there' ){
-        bot.sendMessage({
-            to: channelID,
-            message:'General ' + user
-        });
-    }
+//Initialize the Bot
+
+const bot = new Discord.Client({
+    token: auth.token,
+    autorun: true,
 });
+
+bot.on('message', msg => {
+    guildId = msg.guild.id;
+    channelId = msg.channel.id;
+    user = msg.member.displayName;
+
+    message = msg.content;
+    if(message.toLowerCase() == 'hello there') {
+        sendGrievous(guildId, channelId, user);
+    }
+})
+
+function sendGrievous(guildId, channelId, user) {
+
+    var guild = bot.guilds.get(guildId);
+    if(guild && guild.channels.get(channelId)) {
+        guild.channels.get(channelId).send("Général " + user );
+    }
+}
+
+
+//login to Discord
+bot.login(auth.token);
