@@ -17,6 +17,8 @@ const bot = new Discord.Client({
     autorun: true,
 });
 
+//events
+
 bot.on('message', msg => {
     guildId = msg.guild.id;
     channelId = msg.channel.id;
@@ -26,6 +28,10 @@ bot.on('message', msg => {
     
     if(message.toLowerCase() == 'hello there') {
         sendGrievous(guildId, channelId, user);
+    }
+
+    if(message.toLowerCase() == 'ia') {
+        sendCthulhu(guildId, channelId, user);
     }
 
     if(message.substring(0,1) == '!') {
@@ -67,6 +73,25 @@ bot.on('message', msg => {
     }
 })
 
+bot.on('guildMemberAdd', (member) => {
+    var guild = member.guild;
+    var memberTag = member.user.tag;
+
+    if(guild.systemChannel) {
+        guild.systemChannel.send(memberTag + " s'est joint au Temple d'Affinois, tape `!help` pour savoir ce que je fais !");
+    }
+});
+
+//functions
+
+function sendCthulhu(guildId, channelId, user) {
+
+    var guild = bot.guilds.get(guildId);
+    if(guild && guild.channels.get(channelId)) {
+        guild.channels.get(channelId).send("Ia Ia " + user + " f'romtagn !");
+    }
+}
+
 function sendGrievous(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
@@ -79,7 +104,9 @@ function sendHelp(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("Mon cher " + user );
+        guild.channels.get(channelId).send(
+            "Mon cher **" + user + "** tu as accès aux commandes suivantes :\n- !ping\n- !order66\n- !unmute\n\nEt tu peux aussi me dire `hello there` ou `Ia`, je te répondrai convenablement !"
+            );
     }
 }
 
