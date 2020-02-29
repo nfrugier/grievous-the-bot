@@ -17,6 +17,8 @@ const bot = new Discord.Client({
     autorun: true,
 });
 
+
+
 //events
 
 bot.on('message', msg => {
@@ -26,12 +28,17 @@ bot.on('message', msg => {
 
     message = msg.content;
     
-    if(message.toLowerCase() == 'hello there') {
-        sendGrievous(guildId, channelId, user);
-    }
-
-    if(message.toLowerCase() == 'ia') {
-        sendCthulhu(guildId, channelId, user);
+    switch(message.toLowerCase()) {
+        case 'hello there':
+            sendGrievous(guildId, channelId, user);
+            break;
+        case 'ia':
+            sendCthulhu(guildId, channelId, user);
+            break;
+        case 'cthulhukiss':
+            const kiss = bot.emojis.find(emoji => emoji.name === "CthulhuKiss");
+            msg.channel.send(`${kiss}`);
+            break;
     }
 
     if(message.substring(0,1) == '!') {
@@ -78,7 +85,7 @@ bot.on('guildMemberAdd', (member) => {
     var memberTag = member.user.tag;
 
     if(guild.systemChannel) {
-        guild.systemChannel.send("@" + memberTag + " s'est joint au Temple d'Affinois, tape `!help` pour savoir ce que je fais !");
+        guild.systemChannel.send(memberTag + " s'est joint au Temple d'Affinois, tape `!help` pour savoir ce que je fais !");
     }
 });
 
@@ -105,7 +112,7 @@ function sendHelp(guildId, channelId, user) {
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
         guild.channels.get(channelId).send(
-            "Mon cher **@" + user + "** tu as accès aux commandes suivantes :\n- !ping\n- !order66\n- !unmute\n\nEt tu peux aussi me dire `hello there` ou `Ia`, je te répondrai convenablement !"
+            "Mon cher **" + user + "** tu as accès aux commandes suivantes :\n► !ping\n► !order66\n► !unmute\n\nEt voici les invocations auxquelles je répond :\n► `hello there`\n► `Ia`\n► `CthulhuKiss`"
             );
     }
 }
@@ -114,7 +121,7 @@ function Nope(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("Tu tentes quoi, exactement, @" + user + " ?");
+        guild.channels.get(channelId).send("Tu tentes quoi, exactement, " + user + " ?");
     }
 }
 
