@@ -24,9 +24,10 @@ const bot = new Discord.Client({
 bot.on('message', msg => {
     guildId = msg.guild.id;
     channelId = msg.channel.id;
-    user = msg.member.displayName;
+    user = msg.member;
 
     message = msg.content;
+    emojis = ["cthulhukiss", 'hearteye', 'cuteyogsothoth', 'cuteazatoth', 'cuteshoggoth'];
     
     switch(message.toLowerCase()) {
         case 'hello there':
@@ -35,13 +36,39 @@ bot.on('message', msg => {
         case 'ia':
             sendCthulhu(guildId, channelId, user);
             break;
-        case 'cthulhukiss':
-            const kiss = bot.emojis.find(emoji => emoji.name === "CthulhuKiss");
+        case emojis[0]:
+            let kiss = bot.emojis.find(emoji => emoji.name === emojis[0]);
+            msg.channel.send("**" + user.displayName + "**" +" envoie : ");
             msg.channel.send(`${kiss}`);
+            msg.delete();
+            break;
+        case emojis[1]:
+            const heart = bot.emojis.find(emoji => emoji.name === emojis[1]);
+            msg.channel.send("**" + user.displayName + "**" +" envoie : ");
+            msg.channel.send(`${heart}`);
+            msg.delete();
+            break;
+        case emojis[2]:
+            const yog = bot.emojis.find(emoji => emoji.name === emojis[2]);
+            msg.channel.send("**" + user.displayName + "**" +" envoie : ");
+            msg.channel.send(`${yog}`);
+            msg.delete();
+            break;
+        case emojis[3]:
+            const aza = bot.emojis.find(emoji => emoji.name === emojis[3]);
+            msg.channel.send("**" + user.displayName + "**" +" envoie : ");
+            msg.channel.send(`${aza}`);
+            msg.delete();
+            break;
+        case emojis[4]:
+            const sho = bot.emojis.find(emoji => emoji.name === emojis[4]);
+            msg.channel.send("**" + user.displayName + "**" +" envoie : ");
+            msg.channel.send(`${sho}`);
+            msg.delete();
             break;
     }
 
-    if(message.substring(0,1) == '!') {
+    if(message.substring(0,1) == '&') {
         var args = message.substring(1).split(' ');
         var cmd = args[0];
 
@@ -58,6 +85,7 @@ bot.on('message', msg => {
                 else {
                     Nope(guildId, channelId, user);
                 }
+                msg.delete();
                 break;
             case 'unmute' :
                 if(msg.member.hasPermission("ADMINISTRATOR")) {
@@ -69,12 +97,15 @@ bot.on('message', msg => {
                 else {
                     Nope(guildId, channelId, user);
                 }
+                msg.delete();
                 break;
             case 'ping' :
                 Ping(guildId, channelId, user);
+                msg.delete();
                 break;
             case 'help' :
                 sendHelp(guildId, channelId, user);
+                msg.delete();
                 break;
         }
     }
@@ -85,7 +116,10 @@ bot.on('guildMemberAdd', (member) => {
     var memberTag = member.user.tag;
 
     if(guild.systemChannel) {
-        guild.systemChannel.send(memberTag + " s'est joint au Temple d'Affinois, tape `!help` pour savoir ce que je fais !");
+        guild.systemChannel.send(member.id
+            + "(" + memberTag + ")"
+            + " s'est joint au Temple d'Affinois, tape `&help` pour savoir ce que je fais !\nPense à regarder les messages épinglés dans l'" 
+            + message.guild.channels.get('682808121890308151').toString());
     }
 });
 
@@ -107,12 +141,16 @@ function sendGrievous(guildId, channelId, user) {
     }
 }
 
+function delCmd(message) {
+
+}
+
 function sendHelp(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
         guild.channels.get(channelId).send(
-            "Mon cher **" + user + "** tu as accès aux commandes suivantes :\n► !ping\n► !order66\n► !unmute\n\nEt voici les invocations auxquelles je répond :\n► `hello there`\n► `Ia`\n► `CthulhuKiss`"
+            "Mon cher **<@" + user.id + ">** tu as accès aux commandes suivantes :\n► &ping\n► &order66\n► &unmute\n\nEt voici les invocations auxquelles je répond :\n► `hello there`\n► `Ia`\n► `HeartEye`\n► `CthulhuKiss`\n► `CuteYogSothoth`\n► `CuteAzatoth`\n► `CuteShoggoth`"
             );
     }
 }
