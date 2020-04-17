@@ -22,7 +22,8 @@ const bot = new Discord.Client({
 //events
 
 bot.on('message', msg => {
-    guildId = msg.guild.id;
+    guild = msg.guild;
+    guildId = guild.id;
     channelId = msg.channel.id;
     user = msg.member;
 
@@ -73,7 +74,7 @@ bot.on('message', msg => {
         var cmd = args[0];
 
         args = args.splice(1);
-
+        
         switch(cmd) {
             case 'order66' :
                 if(msg.member.hasPermission("ADMINISTRATOR")) {
@@ -81,6 +82,8 @@ bot.on('message', msg => {
                     for (var member of channel.members) {
                         member[1].setMute(true);
                     }
+                    user.setMute(false);
+                    msg.channel.send(`${user} a décidé de couper la parole à tout le monde sur ${channel.name}`);
                 }
                 else {
                     Nope(guildId, channelId, user);
@@ -93,16 +96,23 @@ bot.on('message', msg => {
                     for (var member of channel.members) {
                         member[1].setMute(false);
                     }
+                    msg.channel.send(`${user} a décidé de redonner la parole à tout le monde sur ${channel.name}`);
                 }
                 else {
                     Nope(guildId, channelId, user);
                 }
                 msg.delete();
                 break;
-            case 'ping' :
-                Ping(guildId, channelId, user);
+            case 'video' :
+                var audioChannel = msg.member.voiceChannel;
+                msg.channel.send(`Cliquez sur ce lien pour activer la vidéo :\n► http://www.discordapp.com/channels/${guildId}/${audioChannel.id}`);
                 msg.delete();
                 break;
+            case 'ping' :
+                msg.channel.send(`**PONG !**`);
+                break;
+            case 'pong' :
+                msg.channel.send("**PING !**");
             case 'help' :
                 sendHelp(guildId, channelId, user);
                 msg.delete();
@@ -118,8 +128,9 @@ bot.on('guildMemberAdd', (member) => {
     if(guild.systemChannel) {
         guild.systemChannel.send(member.id
             + "(" + memberTag + ")"
-            + " s'est joint au Temple d'Affinois, tape `&help` pour savoir ce que je fais !\nPense à regarder les messages épinglés dans l'" 
-            + message.guild.channels.get('682808121890308151').toString());
+            + " s'est joint au Temple d'Affinois, tape `&help` pour savoir ce que je fais !"
+            +"\nPense à regarder les messages épinglés dans l'" 
+            + guild.channels.get('682808121890308151').toString());
     }
 });
 
@@ -129,7 +140,7 @@ function sendCthulhu(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("**Iä ! Iä ! " + user + " f'hromtagn !**");
+        guild.channels.get(channelId).send(`**Iä ! Iä ! ${user} f'hromtagn !**`);
     }
 }
 
@@ -141,16 +152,26 @@ function sendGrievous(guildId, channelId, user) {
     }
 }
 
-function delCmd(message) {
-
-}
-
 function sendHelp(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
         guild.channels.get(channelId).send(
-            "Mon cher **<@" + user.id + ">** tu as accès aux commandes suivantes :\n► &ping\n► &order66\n► &unmute\n\nEt voici les invocations auxquelles je répond :\n► `hello there`\n► `Ia`\n► `HeartEye`\n► `CthulhuKiss`\n► `CuteYogSothoth`\n► `CuteAzatoth`\n► `CuteShoggoth`"
+            "Mon cher **<@" + user.id + ">**, tu as accès aux commandes suivantes :"
+            +"\n► &ping : `Pong`"
+            +"\n► &video : permet générer un lien pour activer la vidéo sur un chan Audio"
+            +"\n► &order66 (Grands Anciens seulement)"
+            +"\n► &unmute (Grands Anciens seulement)"
+            +"\n\nEt voici les invocations auxquelles je répond :"
+            +"\n► `hello there`"
+            +"\n► `Ia`"
+            +"\n\nJe sais aussi faire des gif animés alors même que ce n'est pas un serveur Nitro (les Grands Anciens sont des gros radins)"
+            +"\nTape simplement un de ces mots impies :"
+            +"\n► `HeartEye`"
+            +"\n► `CthulhuKiss`"
+            +"\n► `CuteYogSothoth`"
+            +"\n► `CuteAzatoth`"
+            +"\n► `CuteShoggoth`"
             );
     }
 }
@@ -159,15 +180,7 @@ function Nope(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("Tu tentes quoi, exactement, " + user + " ?");
-    }
-}
-
-function Ping(guildId, channelId, user) {
-
-    var guild = bot.guilds.get(guildId);
-    if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send("**PONG !**");
+        guild.channels.get(channelId).send(`Tu tentes quoi, exactement, ${user} ?\nSeuls les Grands Anciens peuvent faire ça.`);
     }
 }
 
