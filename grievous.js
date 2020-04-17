@@ -113,6 +113,7 @@ bot.on('message', msg => {
                 break;
             case 'pong' :
                 msg.channel.send("**PING !**");
+                break;
             case 'help' :
                 sendHelp(guildId, channelId, user);
                 msg.delete();
