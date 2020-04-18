@@ -112,6 +112,23 @@ bot.on('message', msg => {
                 sendHelp(guildId, channelId, user);
                 msg.delete();
                 break;
+            case 'salut':
+                user.send(text.texts.help);
+                msg.delete();
+                break;
+            case 'clear':
+                if(!user.hasPermission('ADMINISTRATOR')){
+                    return;
+                }
+                else {
+                    async function clear() {
+                        const fetched = await msg.channel.fetchMessages({limite: 99});
+                        msg.channel.bulkDelete(fetched);
+                    }
+                    clear();
+                }
+                msg.delete();
+                break;
             default:
                 break;
         }
@@ -157,7 +174,10 @@ function sendHelp(guildId, channelId, user) {
             + user.id 
             + ">**, tu as accès aux commandes suivantes :"
             + text.texts.help
-            );
+            ).then(sent => {
+                sent.delete(30000);
+                //self-delete message after 30s
+            });
     }
 }
 
@@ -174,7 +194,7 @@ function Nope(guildId, channelId, user) {
 
     var guild = bot.guilds.get(guildId);
     if(guild && guild.channels.get(channelId)) {
-        guild.channels.get(channelId).send(`Tu tentes quoi, exactement, ${user} ?\nSeuls les Grands Anciens peuvent faire ça.`);
+        guild.channels.get(channelId).send(`Tu tentes quoi, exactement, ${user} ?\nSeuls les Grands Anciens peuvent faire ça.`).then();
     }
 }
 

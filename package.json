@@ -1,7 +1,7 @@
 {
     "name": "grievous-bot",
-    "version": "1.0.0",
-    "description": "only respond to hello there with the correct quote",
+    "version": "1.5.0",
+    "description": "Do signicantly more job rn...",
     "main": "grievous.js",
     "author": "Nicolas Frugier",
     "dependencies": {
