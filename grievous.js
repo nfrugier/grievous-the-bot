@@ -9,7 +9,7 @@ logger.remove(logger.transports.Console);
 logger.add(new logger.transports.Console, {
     colorize: true,
 });
-//logger.level = 'debug';
+logger.level = 'debug';
 
 //Initialize the Bot
 
@@ -28,7 +28,7 @@ bot.on('ready', () => {
 
 bot.on('message', msg => {
     guild = msg.guild;
-    guildId = guild.id;
+    guildId = msg.guild.id;
     channelId = msg.channel.id;
     user = msg.member;
 
@@ -122,7 +122,7 @@ bot.on('message', msg => {
                 }
                 else {
                     async function clear() {
-                        const fetched = await msg.channel.fetchMessages({limite: 99});
+                        const fetched = await msg.channel.fetchMessages({limit: 99});
                         msg.channel.bulkDelete(fetched);
                     }
                     clear();
