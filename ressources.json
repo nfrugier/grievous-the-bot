@@ -1,0 +1,17 @@
+{
+    "texts" : {
+        "help" : "\n► &video : permet générer un lien pour activer la vidéo sur un chan Audio\n► &order66 (Grands Anciens seulement)\n► &unmute (Grands Anciens seulement)\n\nEt voici les invocations auxquelles je répond :\n► `hello there`\n► `Ia`\n► `ping` et `pong`\n\nJe sais aussi faire des gif animés alors même que ce n'est pas un serveur Nitro (les Grands Anciens sont des gros radins)\nTape simplement un de ces mots impies :\n► `HeartEye`\n► `CthulhuKiss`\n► `CuteYogSothoth`\n► `CuteAzatoth`\n► `CuteShoggoth`",
+        "welcome": " s'est joint au Temple d'Affinois, tape `&help` pour savoir ce que je fais !\nPense à regarder les messages épinglés dans l'",
+        "video": " :\n► http://www.discordapp.com/channels/"
+
+    },
+    "emojis" : [
+        "cthulhukiss", 
+        "hearteye", 
+        "cuteyogsothoth", 
+        "cuteazatoth", 
+        "cuteshoggoth"],
+    "channels" : {
+        "affinatorium" : "682808121890308151"
+    }
+}
