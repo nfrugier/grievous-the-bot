@@ -140,7 +140,7 @@ bot.on('guildMemberAdd', (member) => {
     var memberTag = member.user.tag;
 
     if(guild.systemChannel) {
-        guild.systemChannel.send(member.id
+        guild.systemChannel.send(member.displayName
             + "(" + memberTag + ")"
             + text.texts.welcome 
             + guild.channels.get(text.channels.affinatorium).toString());
