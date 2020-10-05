@@ -1,3 +1,4 @@
+"use strict";
 const Discord = require('discord.js');
 const logger = require("winston");
 const auth = require('./auth.json');
@@ -27,13 +28,13 @@ bot.on('ready', () => {
     })
 
 bot.on('message', msg => {
-    guild = msg.guild;
-    guildId = msg.guild.id;
-    channelId = msg.channel.id;
-    user = msg.member;
+    var guild = msg.guild;
+    var guildId = msg.guild.id;
+    var channelId = msg.channel.id;
+    var user = msg.member;
 
-    message = msg.content;
-    emojis = text.emojis;
+    var message = msg.content;
+    var emojis = text.emojis;
     
     switch(message.toLowerCase()) {
         case 'hello there':
@@ -183,8 +184,8 @@ function sendHelp(guildId, channelId, user) {
 
 function sendEmoji(message, emojis, number, name)
 {
-    msg = message;
-    let gif = bot.emojis.find(emoji => emoji.name === emojis[number]);
+    var msg = message;
+    var gif = bot.emojis.find(emoji => emoji.name === emojis[number]);
             msg.channel.send(`**${name}**  envoie : `);
             msg.channel.send(`${gif}`);
             msg.delete();
